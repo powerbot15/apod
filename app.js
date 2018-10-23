@@ -7,6 +7,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/api');
+const photoLoader = require('./controllers/photo-loader');
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use(function(err, req, res, next) {
 
 app.listen(3000, function () {
   console.log('app started');
+  photoLoader.getPhotos();
 });
 
 module.exports = app;
