@@ -8,7 +8,7 @@ const MS_IN_DAY = 86400000;
 
 const loader = {
 
-  startDate : (new Date('2003-06-11')).getTime(),
+  startDate : (new Date('2008-02-07')).getTime(),
 
   getPhotos : function () {
       const loadInterval = setInterval(() => {
