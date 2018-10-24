@@ -34,7 +34,42 @@ const loader = {
     });
     // The whole response has been received. Print out the result.
     res.on('end', () => {
-      db.savePhotoToDB(data);
+      data = JSON.parse(data);
+      db.connect()
+        .then(
+          (connectOK) => {
+            return db.savePhotoToDB(data)
+          },
+          (connectErr) => {
+            console.log('Connection error');
+            console.log(connectErr.message);
+          }
+        )
+        .then(
+          (saveOK) => {
+            console.log(data);
+            db.disconnect();
+          },
+          (saveErr) => {
+            console.log('Connection error');
+            console.log(saveErr.message);
+          }
+        )
+        .then(
+          (disconnectOK) => {
+            console.log('Saved');
+            console.log(data);
+          },
+          (disconnectErr) => {
+            console.log('Disconnect error');
+            console.log(disconnectErr.message);
+          }
+        );
+      // db.savePhotoToDB(data)
+      //   .then(
+      //     (saveOK) => {},
+      //     (saveErr) => {console.log(saveErr.message)}
+      //   );
     });
   },
 

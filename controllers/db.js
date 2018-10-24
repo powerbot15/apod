@@ -50,7 +50,14 @@ let db = {
   },
 
   savePhotoToDB : function (data) {
-    console.log(data);
+    return new Promise((resolve, reject) => {
+      this.dbo.collection("photos").insertOne(data, function(err, res) {
+        if (err) {
+          reject(err);
+        }
+        resolve(res);
+      });
+    });
   },
 
   disconnect : function () {
