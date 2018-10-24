@@ -25,7 +25,7 @@ let db = {
 
   createApodColection : function () {
     return new Promise ((resolve, reject) => {
-        this.dbo.createCollection("photoObjects", function (err, res) {
+        this.dbo.createCollection("photos", function (err, res) {
           if (err) {
             reject(err);
           }
