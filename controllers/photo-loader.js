@@ -2,16 +2,24 @@
 const https = require('https');
 const format = require('date-format');
 const db = require('../controllers/db');
+const fs = require('fs');
 const config = require('../config/config');
 
 const MS_IN_DAY = 86400000;
 
 const loader = {
 
-  startDate : (new Date('2008-02-07')).getTime(),
+  startDate : getStartDate(),
+  // startDate : (new Date('2018-10-30')).getTime(),
 
   getPhotos : function () {
       const loadInterval = setInterval(() => {
+        if (this.startDate > Date.now()) {
+          console.log('Future reached!!!');
+          clearInterval(loadInterval);
+          saveStartDate(format.asString('yyyy-MM-dd', new Date(this.startDate)));
+          return;
+        }
         const url = config.nasaUrl + '&date=' + format.asString('yyyy-MM-dd', new Date(this.startDate));
         https.get(url, (res) => {
           let data = '';
@@ -20,16 +28,14 @@ const loader = {
           });
           res.on('end', () => {
             data = JSON.parse(data);
-            if (data.hasOwnProperty('error')) {
+            if (data.hasOwnProperty('error') || data.code && Number(data.code) === 400) {
               clearInterval(loadInterval);
               return;
             }
             this.savePhoto(data);
           });
           this.startDate += MS_IN_DAY;
-          if (this.startDate > Date.now) {
-            clearInterval(loadInterval);
-          }
+
         })
           .on('error', (e) => {
             console.error(e);
@@ -74,4 +80,14 @@ const loader = {
 
   }
 };
+
+function getStartDate () {
+  const dateBuf = fs.readFileSync('./config/start_date.config');
+  return (new Date(dateBuf.toString())).getTime()
+}
+
+function saveStartDate (dateStr) {
+  fs.writeFileSync('./config/start_date.config', dateStr);
+}
+
 module.exports = loader;
