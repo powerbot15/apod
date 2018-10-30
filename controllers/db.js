@@ -66,6 +66,18 @@ let db = {
 
   getPhotoFromDB : function () {
 
+  },
+
+  getPhotosFromDB : function (startDate, endDate) {
+    return new Promise((resolve, reject) => {
+      const dataCursor = this.dbo.collection('photos').find({dateNum : {$gte: startDate, $lte: endDate}});
+      dataCursor.toArray((err, photos) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(photos);
+      });
+    });
   }
 
 };

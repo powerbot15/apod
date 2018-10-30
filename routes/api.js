@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const https = require('https');
 const config = require('../config/config');
+const db = require('../controllers/db');
 
 
 /* GET home page. */
@@ -13,6 +14,26 @@ router.get('/photo', function(req, res, next) {
   getDayPhoto(nasaURL, res);
 });
 
+router.get('/photos', function (req, res, next) {
+  const startDate = (new Date(req.query.startDate)).getTime();
+  const endDate = (new Date(req.query.endDate)).getTime();
+  db.connect()
+    .then(
+      (connectOk) => {
+        return db.getPhotosFromDB(startDate, endDate);
+      },
+      (err) => {
+
+      }
+    )
+    .then((photos) => {
+      res.send(photos);
+      db.disconnect();
+    }, (err) => {
+      res.error(err);
+    })
+    .then( () => {}, () => {});
+});
 module.exports = router;
 
 function getDayPhoto (url, response) {

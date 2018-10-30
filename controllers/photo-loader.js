@@ -32,6 +32,7 @@ const loader = {
               clearInterval(loadInterval);
               return;
             }
+            data.dateNum = (new Date(data.date)).getTime();
             this.savePhoto(data);
           });
           this.startDate += MS_IN_DAY;

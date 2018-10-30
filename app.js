@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', apiRouter);
+app.use('/api', apiRouter);
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 
@@ -43,7 +43,6 @@ app.use(function(err, req, res, next) {
 
 app.listen(3000, function () {
   console.log('app started');
-  photoLoader.getPhotos();
 });
 
 module.exports = app;
