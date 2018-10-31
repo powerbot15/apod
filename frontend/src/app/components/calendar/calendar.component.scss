@@ -1,0 +1,17 @@
+.calendar-wrap {
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  .month-title {
+    width: 300px;
+    margin: 0;
+  }
+  .nav-btn {
+    background-color: transparent;
+    padding-top: 0;
+    padding-bottom: 0;
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}

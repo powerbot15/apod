@@ -1,3 +1,11 @@
-<p>
-  calendar works!
-</p>
+<div class="row calendar-wrap">
+  <div class="col-12 d-flex justify-content-center">
+    <button class="btn nav-btn" (click)="prevMonth()">
+      <svg height="32px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "/></svg>
+    </button>
+    <h2 class="text-center month-title">{{month}}</h2>
+    <button class="btn nav-btn" (click)="nextMonth()">
+      <svg height="32px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon points="160,128.4 192.3,96 352,256 352,256 352,256 192.3,416 160,383.6 287.3,256 "/></svg>
+    </button>
+  </div>
+</div>

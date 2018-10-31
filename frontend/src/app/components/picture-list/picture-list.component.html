@@ -1,3 +1,7 @@
-<p>
-  picture-list works!
-</p>
+<div class="photos-wrap">
+  <ul class="photos">
+    <li class="photo" *ngFor="let photo of photoList; let i=index;">
+      <img src="{{photo.url}}" alt="{{photo.title}}" (error)="removeBroken(i)">
+    </li>
+  </ul>
+</div>

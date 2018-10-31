@@ -14,7 +14,7 @@ import { PictureListComponent } from './components/picture-list/picture-list.com
   declarations: [
     AppComponent,
     CalendarComponent,
-    PictureListComponent
+    PictureListComponent,
   ],
   imports: [
     BrowserModule,
